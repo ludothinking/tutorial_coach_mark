@@ -389,7 +389,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void showTutorial() {
-    tutorialCoachMark = TutorialCoachMark(context,
+    tutorialCoachMark = TutorialCoachMark(
+        context: context,
         targets: targets,
         colorShadow: Colors.red,
         textSkip: "SKIP",

@@ -8,7 +8,9 @@ export 'package:tutorial_coach_mark/content_target.dart';
 export 'package:tutorial_coach_mark/target_focus.dart';
 
 class TutorialCoachMark {
-  final BuildContext _context;
+  final BuildContext context;
+  final OverlayState overlay;
+
   final List<TargetFocus> targets;
   final Function(TargetFocus) onClickTarget;
   final Function() onFinish;
@@ -24,8 +26,9 @@ class TutorialCoachMark {
 
   OverlayEntry _overlayEntry;
 
-  TutorialCoachMark(
-    this._context, {
+  TutorialCoachMark({
+    this.context,
+    this.overlay,
     this.targets,
     this.colorShadow = Colors.black,
     this.onClickTarget,
@@ -37,7 +40,8 @@ class TutorialCoachMark {
     this.textStyleSkip = const TextStyle(color: Colors.white),
     this.hideSkip = false,
     this.opacityShadow = 0.8,
-  }) : assert(targets != null, opacityShadow >= 0 && opacityShadow <= 1);
+  })  : assert(context != null || overlay != null, "Either [context] or [overlay] must not be null"),
+        assert(targets != null, opacityShadow >= 0 && opacityShadow <= 1);
 
   OverlayEntry _buildOverlay() {
     return OverlayEntry(builder: (context) {
@@ -61,7 +65,7 @@ class TutorialCoachMark {
   void show() {
     if (_overlayEntry == null) {
       _overlayEntry = _buildOverlay();
-      Overlay.of(_context).insert(_overlayEntry);
+      _getOverlay().insert(_overlayEntry);
     }
   }
 
@@ -76,7 +80,16 @@ class TutorialCoachMark {
   }
 
   void next() => _widgetKey?.currentState?.next();
+
   void previous() => _widgetKey?.currentState?.previous();
+
+  OverlayState _getOverlay() {
+    if (overlay != null) {
+      return overlay;
+    } else {
+      return Overlay.of(context);
+    }
+  }
 
   void _removeOverlay() {
     _overlayEntry?.remove();
