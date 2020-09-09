@@ -1,3 +1,7 @@
+## [0.5.2] - 09/09/2020.
+
+* Add `overlay` in TutorialCoachMark
+
 ## [0.5.1] - 09/08/2020.
 
 * Fix issue #34
