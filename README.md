@@ -18,7 +18,8 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 void showTutorial() {
     TutorialCoachMark tutorial = TutorialCoachMark(
-      context,
+      context: context,
+      //overlay: overlayState,
       targets: targets, // List<TargetFocus>
       colorShadow: Colors.red, // DEFAULT Colors.black
        // alignSkip: Alignment.bottomRight,
