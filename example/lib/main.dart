@@ -394,13 +394,16 @@ class _MyHomePageState extends State<MyHomePage> {
         colorShadow: Colors.red,
         textSkip: "SKIP",
         paddingFocus: 10,
-        opacityShadow: 0.8, onFinish: () {
-      print("finish");
-    }, onClickTarget: (target) {
-      print(target);
-    }, onClickSkip: () {
-      print("skip");
-    })
+        opacityShadow: 0.8,
+        onFinish: () {
+          print("finish");
+        },
+        onClickTarget: (target) {
+          print(target);
+        },
+        onClickSkip: () {
+          print("skip");
+        })
       ..show();
   }
 

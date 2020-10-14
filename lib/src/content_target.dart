@@ -15,6 +15,7 @@ class ContentTarget {
   final AlignContent align;
   final CustomTargetPosition customPosition;
   final Widget child;
+
   @override
   String toString() {
     return 'ContentTarget{align: $align, child: $child}';

@@ -36,7 +36,8 @@ class TutorialCoachMark {
     this.textStyleSkip = const TextStyle(color: Colors.white),
     this.hideSkip = false,
     this.opacityShadow = 0.8,
-  })  : assert(context != null || overlay != null, "Either [context] or [overlay] must not be null"),
+  })  : assert(context != null || overlay != null,
+            "Either [context] or [overlay] must not be null"),
         assert(targets != null, opacityShadow >= 0 && opacityShadow <= 1);
 
   OverlayEntry _buildOverlay() {

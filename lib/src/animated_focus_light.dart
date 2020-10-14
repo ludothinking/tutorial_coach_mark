@@ -131,6 +131,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
   }
 
   void next() => _tapHandler();
+
   void previous() => _tapHandler(goNext: false);
 
   void _tapHandler({bool goNext = true}) {
