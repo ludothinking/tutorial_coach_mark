@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:tutorial_coach_mark/animated_focus_light.dart';
-import 'package:tutorial_coach_mark/content_target.dart';
-import 'package:tutorial_coach_mark/target_position.dart';
+
+import 'animated_focus_light.dart';
+import 'content_target.dart';
+import 'target_position.dart';
 
 class TargetFocus {
   TargetFocus({

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 void main() => runApp(MyApp());

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tutorial_coach_mark/light_paint.dart';
-import 'package:tutorial_coach_mark/light_paint_rect.dart';
-import 'package:tutorial_coach_mark/target_focus.dart';
-import 'package:tutorial_coach_mark/target_position.dart';
-import 'package:tutorial_coach_mark/util.dart';
+
+import 'light_paint.dart';
+import 'light_paint_rect.dart';
+import 'target_focus.dart';
+import 'target_position.dart';
+import 'util.dart';
 
 enum ShapeLightFocus { Circle, RRect }
 

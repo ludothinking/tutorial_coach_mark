@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:tutorial_coach_mark/custom_target_position.dart';
+
+import 'custom_target_position.dart';
 
 enum AlignContent { top, bottom, left, right, custom }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tutorial_coach_mark/target_position.dart';
+
+import 'target_position.dart';
 
 class LightPaintRect extends CustomPainter {
   final double progress;
