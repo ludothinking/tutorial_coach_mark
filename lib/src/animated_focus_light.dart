@@ -19,6 +19,9 @@ class AnimatedFocusLight extends StatefulWidget {
   final Color colorShadow;
   final double opacityShadow;
 
+  final Duration duration;
+  final Duration pulseDuration;
+
   const AnimatedFocusLight({
     Key key,
     this.targets,
@@ -29,6 +32,8 @@ class AnimatedFocusLight extends StatefulWidget {
     this.paddingFocus = 10,
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
+    this.duration = const Duration(milliseconds: 600),
+    this.pulseDuration = const Duration(milliseconds: 500),
   }) : super(key: key);
 
   @override
@@ -58,7 +63,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
     _targetFocus = widget?.targets[_currentFocus];
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
+      duration: widget.duration,
     );
 
     _curvedAnimation = CurvedAnimation(
@@ -68,7 +73,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
 
     _controllerPulse = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: widget.pulseDuration,
     );
 
     _tweenPulse = Tween(begin: 1.0, end: 0.99).animate(
