@@ -13,8 +13,7 @@ TargetPosition getTargetCurrent(TargetFocus target) {
 
       return TargetPosition(size, offset);
     } catch (e) {
-      print("ERROR: Não foi possivem oter informações da KEY");
-      return null;
+      throw ("ERROR: Não foi possivem oter informações da KEY");
     }
   } else {
     return target.targetPosition;
