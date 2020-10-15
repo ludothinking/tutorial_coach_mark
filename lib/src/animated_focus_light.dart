@@ -153,30 +153,10 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
     }
 
     setState(() {
-      _currentTarget = _createTarget(_targetFocus);
+      _currentTarget = createTarget(_targetFocus);
     });
 
     widget.onTick?.call();
-  }
-
-  TargetPosition _createTarget(TargetFocus focus) {
-    var targetPosition = createTarget(focus);
-
-    if (focus.shape == ShapeLightFocus.Circle) {
-      var sideA = pow(targetPosition.size.width, 2);
-      var sideB = pow(targetPosition.size.height, 2);
-      var hypotenuse = sqrt(sideA + sideB);
-
-      targetPosition.radius = hypotenuse;
-
-      var oldSize = targetPosition.size;
-      targetPosition.size = Size(hypotenuse, hypotenuse);
-
-      var diff = (oldSize - targetPosition.size) as Offset;
-      targetPosition.offset += diff / 2;
-    }
-
-    return targetPosition;
   }
 
   void _runFocus() {
@@ -188,7 +168,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
 
     setState(() {
       var temp = _currentTarget;
-      _currentTarget = _createTarget(_targetFocus);
+      _currentTarget = createTarget(_targetFocus);
 
       if (_oldTarget == null) {
         _oldTarget = temp ?? _currentTarget;
