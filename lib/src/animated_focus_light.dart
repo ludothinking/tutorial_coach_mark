@@ -46,8 +46,7 @@ class AnimatedFocusLight extends StatefulWidget {
   AnimatedFocusLightState createState() => AnimatedFocusLightState();
 }
 
-class AnimatedFocusLightState extends State<AnimatedFocusLight>
-    with TickerProviderStateMixin {
+class AnimatedFocusLightState extends State<AnimatedFocusLight> {
   TargetPosition _currentTarget;
   TargetPosition _oldTarget;
 
@@ -127,16 +126,6 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
     );
   }
 
-  void next() {
-    widget.onClickTarget?.call(_targetFocus);
-
-    _nextFocus();
-  }
-
-  void previous() {
-    //not implemented yet!
-  }
-
   void _nextFocus() {
     if (_currentFocus >= widget.targets.length - 1) {
       this._finish();
@@ -148,6 +137,16 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
     _runFocus();
 
     widget?.onFocus(_targetFocus);
+  }
+
+  void next() {
+    widget.onClickTarget?.call(_targetFocus);
+
+    _nextFocus();
+  }
+
+  void previous() {
+    //not implemented yet!
   }
 
   void _runFocus() {
