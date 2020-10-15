@@ -1,3 +1,8 @@
+## [0.6.0] - 15/10/2020.
+
+* Change animations
+* Rename callbacks
+
 ## [0.5.2] - 09/09/2020.
 
 * Add `overlay` in TutorialCoachMark
