@@ -33,6 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey keyButton4 = GlobalKey();
   GlobalKey keyButton5 = GlobalKey();
 
+  bool _goingUp = false;
+
   @override
   void initState() {
     initTargets();
@@ -42,6 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var query = MediaQuery.of(context);
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -78,14 +82,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: RaisedButton(
-                  key: keyButton2,
-                  onPressed: () {},
+            TweenAnimationBuilder(
+              duration: Duration(seconds: 5),
+              curve: Curves.bounceInOut,
+              tween: Tween<double>(
+                begin: _goingUp ? 1 : 0,
+                end: !_goingUp ? 1 : 0,
+              ),
+              onEnd: () => setState(() {
+                _goingUp = !_goingUp;
+              }),
+              builder: (_, progress, __) => Positioned(
+                left: (query.size.width - 50) * progress,
+                top: (query.size.height - 100) * progress,
+                child: SizedBox(
+                  width: 50,
+                  height: 100,
+                  child: RaisedButton(
+                    key: keyButton2,
+                    color: Colors.pink,
+                    onPressed: () {},
+                  ),
                 ),
               ),
             ),

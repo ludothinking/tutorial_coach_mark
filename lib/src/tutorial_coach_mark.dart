@@ -20,6 +20,9 @@ class TutorialCoachMark {
   final double opacityShadow;
   final GlobalKey<TutorialCoachMarkWidgetState> _widgetKey = GlobalKey();
 
+  final bool enableTicker;
+  final Function() onTick;
+
   OverlayEntry _overlayEntry;
 
   TutorialCoachMark({
@@ -36,6 +39,8 @@ class TutorialCoachMark {
     this.textStyleSkip = const TextStyle(color: Colors.white),
     this.hideSkip = false,
     this.opacityShadow = 0.8,
+    this.enableTicker = false,
+    this.onTick,
   })  : assert(context != null || overlay != null,
             "Either [context] or [overlay] must not be null"),
         assert(targets != null, opacityShadow >= 0 && opacityShadow <= 1);
@@ -55,6 +60,8 @@ class TutorialCoachMark {
         colorShadow: colorShadow,
         opacityShadow: opacityShadow,
         finish: finish,
+        enableTicker: enableTicker,
+        onTick: onTick,
       );
     });
   }

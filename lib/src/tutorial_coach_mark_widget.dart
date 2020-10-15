@@ -20,6 +20,8 @@ class TutorialCoachMarkWidget extends StatefulWidget {
     this.opacityShadow = 0.8,
     this.textStyleSkip = const TextStyle(color: Colors.white),
     this.hideSkip,
+    this.enableTicker = false,
+    this.onTick,
   }) : super(key: key);
 
   final List<TargetFocus> targets;
@@ -33,6 +35,9 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final String textSkip;
   final TextStyle textStyleSkip;
   final bool hideSkip;
+
+  final bool enableTicker;
+  final Function() onTick;
 
   @override
   TutorialCoachMarkWidgetState createState() => TutorialCoachMarkWidgetState();
@@ -69,6 +74,8 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             colorShadow: widget.colorShadow,
             opacityShadow: widget.opacityShadow,
             onClickTarget: widget.clickTarget,
+            enableTicker: widget.enableTicker,
+            onTick: widget.onTick,
             onFocus: (target) {
               setState(() {
                 currentTarget = target;

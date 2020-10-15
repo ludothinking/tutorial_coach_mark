@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 
 import 'light_painter.dart';
@@ -19,10 +20,13 @@ class AnimatedFocusLight extends StatefulWidget {
 
   final double maxPulsePadding;
 
+  final bool enableTicker;
+
   final Function(TargetFocus) onFocus;
   final Function(TargetFocus) onClickTarget;
   final Function() onRemoveFocus;
   final Function() onFinish;
+  final Function() onTick;
 
   final Duration focusDuration;
   final Duration pulseDuration;
@@ -34,11 +38,13 @@ class AnimatedFocusLight extends StatefulWidget {
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
     this.maxPulsePadding = 8,
+    this.enableTicker = false,
     this.onFocus,
     this.onFinish,
     this.onRemoveFocus,
     this.onClickTarget,
-    this.focusDuration = const Duration(milliseconds: 500),
+    this.onTick,
+    this.focusDuration = const Duration(milliseconds: 50),
     this.pulseDuration = const Duration(milliseconds: 500),
   }) : super(key: key);
 
@@ -57,12 +63,27 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
   double _pulseEnd = 0;
   double _pulsePadding;
 
+  Ticker _ticker;
+
   @override
   void initState() {
+    super.initState();
+
     _targetFocus = widget?.targets[_currentFocus];
 
     _runFocus();
-    super.initState();
+
+    if (widget.enableTicker) {
+      _ticker = Ticker(_tick);
+      _ticker.start();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _ticker?.dispose();
   }
 
   @override
@@ -126,6 +147,55 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
     );
   }
 
+  void _tick(Duration _) {
+    if (_targetFocus == null || _currentTarget == null) {
+        return;
+    }
+
+    setState(() {
+      _currentTarget = _createTarget(_targetFocus);
+    });
+
+    widget.onTick?.call();
+  }
+
+  TargetPosition _createTarget(TargetFocus focus) {
+    var targetPosition = createTarget(focus);
+
+    if (focus.shape == ShapeLightFocus.Circle) {
+      var sideA = pow(targetPosition.size.width, 2);
+      var sideB = pow(targetPosition.size.height, 2);
+      var hypotenuse = sqrt(sideA + sideB);
+
+      targetPosition.radius = hypotenuse;
+
+      var oldSize = targetPosition.size;
+      targetPosition.size = Size(hypotenuse, hypotenuse);
+
+      var diff = (oldSize - targetPosition.size) as Offset;
+      targetPosition.offset += diff / 2;
+    }
+
+    return targetPosition;
+  }
+
+  void _runFocus() {
+    if (_currentFocus < 0) {
+      return;
+    }
+
+    _targetFocus = widget.targets[_currentFocus];
+
+    setState(() {
+      var temp = _currentTarget;
+      _currentTarget = _createTarget(_targetFocus);
+
+      if (_oldTarget == null) {
+        _oldTarget = temp ?? _currentTarget;
+      }
+    });
+  }
+
   void _nextFocus() {
     if (_currentFocus >= widget.targets.length - 1) {
       this._finish();
@@ -139,6 +209,14 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
     widget?.onFocus(_targetFocus);
   }
 
+  void _finish() {
+    setState(() {
+      _currentFocus = 0;
+    });
+
+    widget.onFinish();
+  }
+
   void next() {
     widget.onClickTarget?.call(_targetFocus);
 
@@ -147,41 +225,5 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
 
   void previous() {
     //not implemented yet!
-  }
-
-  void _runFocus() {
-    if (_currentFocus < 0) {
-      return;
-    }
-
-    _targetFocus = widget.targets[_currentFocus];
-
-    var targetPosition = createTarget(_targetFocus);
-
-    setState(() {
-      _oldTarget = _currentTarget ?? targetPosition;
-      _currentTarget = targetPosition;
-
-      if (_targetFocus.shape == ShapeLightFocus.Circle) {
-        var hypotenuse = sqrt(pow(targetPosition.size.width, 2) +
-            pow(targetPosition.size.height, 2));
-
-        targetPosition.radius = hypotenuse;
-
-        var oldSize = targetPosition.size;
-        targetPosition.size = Size(hypotenuse, hypotenuse);
-
-        var diff = (oldSize - targetPosition.size) as Offset;
-        targetPosition.offset += diff / 2;
-      }
-    });
-  }
-
-  void _finish() {
-    setState(() {
-      _currentFocus = 0;
-    });
-
-    widget.onFinish();
   }
 }
