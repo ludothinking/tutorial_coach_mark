@@ -1,3 +1,7 @@
+## [0.6.2] - 15/10/2020.
+
+* Recognize taps over the overlay content
+
 ## [0.6.1] - 15/10/2020.
 
 * Add `maxPulsePadding` as a widget parameter

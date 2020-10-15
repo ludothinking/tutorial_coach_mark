@@ -79,36 +79,39 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
               });
             },
           ),
-          TweenAnimationBuilder(
-            duration: Duration(milliseconds: 300),
-            tween: Tween<double>(
-              begin: !_refocus
-                  ? 1
-                  : _isFadeIn
-                      ? 0
-                      : 1,
-              end: !_refocus
-                  ? 1
-                  : _isFadeIn
-                      ? 1
-                      : 0,
-            ),
-            onEnd: () {
-              setState(() {
-                if (_refocus && !_isFadeIn) {
-                  _isFadeIn = true;
+          IgnorePointer(
+            ignoring: true,
+            child: TweenAnimationBuilder(
+              duration: Duration(milliseconds: 300),
+              tween: Tween<double>(
+                begin: !_refocus
+                    ? 1
+                    : _isFadeIn
+                        ? 0
+                        : 1,
+                end: !_refocus
+                    ? 1
+                    : _isFadeIn
+                        ? 1
+                        : 0,
+              ),
+              onEnd: () {
+                setState(() {
+                  if (_refocus && !_isFadeIn) {
+                    _isFadeIn = true;
 
-                  _content = _buildContents();
-                } else {
-                  _refocus = false;
-                }
-              });
-            },
-            builder: (_, opacity, child) => Opacity(
-              opacity: opacity,
-              child: child,
+                    _content = _buildContents();
+                  } else {
+                    _refocus = false;
+                  }
+                });
+              },
+              builder: (_, opacity, child) => Opacity(
+                opacity: opacity,
+                child: child,
+              ),
+              child: _content,
             ),
-            child: _content,
           ),
           _buildSkip()
         ],
