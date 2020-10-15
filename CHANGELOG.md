@@ -1,3 +1,10 @@
+## [0.6.3] - 15/10/2020.
+
+* Added `enableTicker` 
+* Added `onTick` callback
+* Update current focus position every tick if `enableTicker` is `true`
+* Update contents every tick if `enableTicker` is `true`
+
 ## [0.6.2] - 15/10/2020.
 
 * Recognize taps over the overlay content
@@ -9,7 +16,7 @@
 ## [0.6.0] - 15/10/2020.
 
 * Change animations
-* Rename callbacks
+* BREAKING CHANGE: Rename callbacks
 
 ## [0.5.2] - 09/09/2020.
 
