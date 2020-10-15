@@ -71,12 +71,12 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
 
     _targetFocus = widget?.targets[_currentFocus];
 
-    _runFocus();
-
     if (widget.enableTicker) {
       _ticker = Ticker(_tick);
       _ticker.start();
     }
+
+    _runFocus();
   }
 
   @override
@@ -149,7 +149,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
 
   void _tick(Duration _) {
     if (_targetFocus == null || _currentTarget == null) {
-        return;
+      return;
     }
 
     setState(() {
@@ -174,6 +174,10 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
         _oldTarget = temp ?? _currentTarget;
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => widget?.onFocus(_targetFocus),
+    );
   }
 
   void _nextFocus() {
@@ -185,8 +189,6 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
     _currentFocus++;
 
     _runFocus();
-
-    widget?.onFocus(_targetFocus);
   }
 
   void _finish() {
