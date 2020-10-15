@@ -9,6 +9,11 @@ class TargetPosition {
 
   TargetPosition(this.size, this.offset, [this.radius = 0]);
 
+  @override
+  String toString() {
+    return '$size, $offset, radius: $radius';
+  }
+
   TargetPosition operator -(TargetPosition other) {
     return TargetPosition(
       size - Offset(other.size.width, other.size.height),
