@@ -10,7 +10,7 @@ class TargetFocus {
     this.keyTarget,
     this.targetPosition,
     this.contents,
-    this.shape,
+    this.shape = ShapeLightFocus.Circle,
     this.radius,
     this.color,
     this.enableOverlayTab = false,
