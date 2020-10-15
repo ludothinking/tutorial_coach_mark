@@ -1,3 +1,7 @@
+## [0.6.3+1] - 15/10/2020.
+
+* Set default shape to `ShapeLightFocus.RRect`
+
 ## [0.6.3] - 15/10/2020.
 
 * Added `enableTicker` 
