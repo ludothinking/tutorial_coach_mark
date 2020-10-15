@@ -44,7 +44,7 @@ class AnimatedFocusLight extends StatefulWidget {
     this.onRemoveFocus,
     this.onClickTarget,
     this.onTick,
-    this.focusDuration = const Duration(milliseconds: 50),
+    this.focusDuration = const Duration(milliseconds: 500),
     this.pulseDuration = const Duration(milliseconds: 500),
   }) : super(key: key);
 

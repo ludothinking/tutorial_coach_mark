@@ -1,3 +1,7 @@
+## [0.6.3+3] - 15/10/2020.
+
+* Fix default duration too low
+
 ## [0.6.3+2] - 15/10/2020.
 
 * Fix NPE when target has no size defined
