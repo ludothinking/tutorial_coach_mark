@@ -1,5 +1,9 @@
 ## [0.6.3+3] - 15/10/2020.
 
+* Use provided radius if shape is not `ShapeLightFocus.Circle`
+
+## [0.6.3+3] - 15/10/2020.
+
 * Fix default duration too low
 
 ## [0.6.3+2] - 15/10/2020.

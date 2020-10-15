@@ -37,6 +37,8 @@ TargetPosition createTarget(TargetFocus focus) {
 
     var diff = (oldSize - target.size) as Offset;
     target.offset += diff / 2;
+  } else {
+    target.radius = focus.radius;
   }
 
   return target;
