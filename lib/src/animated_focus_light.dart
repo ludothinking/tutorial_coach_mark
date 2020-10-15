@@ -169,7 +169,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
   void _runFocus() {
     if (_currentFocus < 0) return;
     _targetFocus = widget.targets[_currentFocus];
-    var targetPosition = getTargetCurrent(_targetFocus);
+    var targetPosition = createTarget(_targetFocus);
     if (targetPosition == null) {
       this._finish();
       return;

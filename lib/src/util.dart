@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'target_focus.dart';
 import 'target_position.dart';
 
-TargetPosition getTargetCurrent(TargetFocus target) {
+TargetPosition createTarget(TargetFocus target) {
   if (target.keyTarget != null) {
     var key = target.keyTarget;
 
