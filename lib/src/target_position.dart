@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 
 class TargetPosition {
-  final Size size;
-  final Offset offset;
+  Size size;
+  Offset offset;
 
   TargetPosition(this.size, this.offset);
 
