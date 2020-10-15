@@ -17,6 +17,8 @@ class AnimatedFocusLight extends StatefulWidget {
   final Color colorShadow;
   final double opacityShadow;
 
+  final double maxPulsePadding;
+
   final Function(TargetFocus) onFocus;
   final Function(TargetFocus) onClickTarget;
   final Function() onRemoveFocus;
@@ -31,6 +33,7 @@ class AnimatedFocusLight extends StatefulWidget {
     this.paddingFocus = 10,
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
+    this.maxPulsePadding = 8,
     this.onFocus,
     this.onFinish,
     this.onRemoveFocus,
@@ -53,7 +56,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
 
   double _pulseBegin = 1;
   double _pulseEnd = 0;
-  double _pulseOffset;
+  double _pulsePadding;
 
   @override
   void initState() {
@@ -84,7 +87,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
                       _pulseBegin = 1 - _pulseBegin;
                       _pulseEnd = 1 - _pulseEnd;
 
-                      _pulseOffset = 16;
+                      _pulsePadding = widget.maxPulsePadding;
                     });
                   },
                   builder: (_, percent, __) => Container(
@@ -97,7 +100,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight>
                         target: position,
                         opacityShadow: widget.opacityShadow,
                         padding: widget.paddingFocus +
-                            (_pulseOffset ?? min(c.maxHeight, c.maxWidth)) *
+                            (_pulsePadding ?? min(c.maxHeight, c.maxWidth)) *
                                 percent,
                       ),
                     ),

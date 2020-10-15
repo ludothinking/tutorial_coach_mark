@@ -1,3 +1,7 @@
+## [0.6.1] - 15/10/2020.
+
+* Add `maxPulsePadding` as a widget parameter
+
 ## [0.6.0] - 15/10/2020.
 
 * Change animations
