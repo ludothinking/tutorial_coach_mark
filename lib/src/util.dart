@@ -22,7 +22,7 @@ TargetPosition createTarget(TargetFocus focus) {
       throw ("It was not possible to fetch information from the given key ${focus.keyTarget}");
     }
   } else {
-    target = focus.targetPosition;
+    target = focus.targetPosition ?? TargetPosition(Size.zero, Offset.zero);
   }
 
   if (focus.shape == ShapeLightFocus.Circle) {

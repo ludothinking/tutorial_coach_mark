@@ -1,3 +1,7 @@
+## [0.6.3+2] - 15/10/2020.
+
+* Fix NPE when target has no size defined
+
 ## [0.6.3+1] - 15/10/2020.
 
 * Set default shape to `ShapeLightFocus.RRect`
