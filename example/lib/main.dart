@@ -406,6 +406,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void showTutorial() {
     tutorialCoachMark = TutorialCoachMark(
+        enableTicker: true,
         context: context,
         targets: targets,
         colorShadow: Colors.red,

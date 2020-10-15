@@ -75,7 +75,13 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             opacityShadow: widget.opacityShadow,
             onClickTarget: widget.clickTarget,
             enableTicker: widget.enableTicker,
-            onTick: widget.onTick,
+            onTick: () {
+              setState(() {
+                _content = _buildContents();
+              });
+
+              widget.onTick?.call();
+            },
             onFocus: (target) {
               setState(() {
                 currentTarget = target;
