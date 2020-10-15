@@ -43,6 +43,18 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
   bool showContent = false;
   TargetFocus currentTarget;
 
+  bool _refocus = false;
+  bool _isFadeIn = false;
+
+  Widget _content;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _content = _buildContents();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -52,29 +64,51 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
           AnimatedFocusLight(
             key: _focusLightKey,
             targets: widget.targets,
-            finish: widget.finish,
+            onFinish: widget.finish,
             paddingFocus: widget.paddingFocus,
             colorShadow: widget.colorShadow,
             opacityShadow: widget.opacityShadow,
-            clickTarget: (target) {
-              if (widget.clickTarget != null) widget.clickTarget(target);
-            },
-            focus: (target) {
+            onClickTarget: widget.clickTarget,
+            onFocus: (target) {
               setState(() {
                 currentTarget = target;
                 showContent = true;
-              });
-            },
-            removeFocus: () {
-              setState(() {
-                showContent = false;
+
+                _refocus = true;
+                _isFadeIn = false;
               });
             },
           ),
-          AnimatedOpacity(
-            opacity: showContent ? 1 : 0,
+          TweenAnimationBuilder(
             duration: Duration(milliseconds: 300),
-            child: _buildContents(),
+            tween: Tween<double>(
+              begin: !_refocus
+                  ? 1
+                  : _isFadeIn
+                      ? 0
+                      : 1,
+              end: !_refocus
+                  ? 1
+                  : _isFadeIn
+                      ? 1
+                      : 0,
+            ),
+            onEnd: () {
+              setState(() {
+                if (_refocus && !_isFadeIn) {
+                  _isFadeIn = true;
+
+                  _content = _buildContents();
+                } else {
+                  _refocus = false;
+                }
+              });
+            },
+            builder: (_, opacity, child) => Opacity(
+              opacity: opacity,
+              child: child,
+            ),
+            child: _content,
           ),
           _buildSkip()
         ],
