@@ -24,7 +24,6 @@ class AnimatedFocusLight extends StatefulWidget {
 
   final Function(TargetFocus) onFocus;
   final Function(TargetFocus) onClickTarget;
-  final Function() onRemoveFocus;
   final Function() onFinish;
   final Function() onTick;
 
@@ -41,7 +40,6 @@ class AnimatedFocusLight extends StatefulWidget {
     this.enableTicker = false,
     this.onFocus,
     this.onFinish,
-    this.onRemoveFocus,
     this.onClickTarget,
     this.onTick,
     this.focusDuration = const Duration(milliseconds: 500),
