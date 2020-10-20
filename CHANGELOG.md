@@ -1,3 +1,9 @@
+## [0.6.4] - 20/10/2020.
+
+* Add `pulseDuration` as a widget parameter
+* Add `focusDuration` as a widget parameter
+* Add `maxPulsePadding` as a widget parameter
+
 ## [0.6.3+5] - 15/10/2020.
 
 * fix: Call `onFocus` for the first target
