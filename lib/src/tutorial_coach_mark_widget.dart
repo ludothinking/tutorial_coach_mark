@@ -7,37 +7,37 @@ import 'target_position.dart';
 import 'util.dart';
 
 class TutorialCoachMarkWidget extends StatefulWidget {
+  final List<TargetFocus> targets;
+  final Color colorShadow;
+  final double opacityShadow;
+  final double paddingFocus;
+  final AlignmentGeometry alignSkip;
+  final String textSkip;
+  final TextStyle textStyleSkip;
+  final bool hideSkip;
+  final bool enableTicker;
+
+  final Function(TargetFocus) clickTarget;
+  final Function() finish;
+  final Function() clickSkip;
+  final Function() onTick;
+
   const TutorialCoachMarkWidget({
     Key key,
     this.targets,
-    this.finish,
     this.paddingFocus = 10,
-    this.clickTarget,
     this.alignSkip = Alignment.bottomRight,
     this.textSkip = "SKIP",
-    this.clickSkip,
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
     this.textStyleSkip = const TextStyle(color: Colors.white),
     this.hideSkip,
     this.enableTicker = false,
+    this.clickTarget,
+    this.finish,
+    this.clickSkip,
     this.onTick,
   }) : super(key: key);
-
-  final List<TargetFocus> targets;
-  final Function(TargetFocus) clickTarget;
-  final Function() finish;
-  final Color colorShadow;
-  final double opacityShadow;
-  final double paddingFocus;
-  final Function() clickSkip;
-  final AlignmentGeometry alignSkip;
-  final String textSkip;
-  final TextStyle textStyleSkip;
-  final bool hideSkip;
-
-  final bool enableTicker;
-  final Function() onTick;
 
   @override
   TutorialCoachMarkWidgetState createState() => TutorialCoachMarkWidgetState();
@@ -45,8 +45,8 @@ class TutorialCoachMarkWidget extends StatefulWidget {
 
 class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
   final GlobalKey<AnimatedFocusLightState> _focusLightKey = GlobalKey();
-  bool showContent = false;
-  TargetFocus currentTarget;
+  bool _showContent = false;
+  TargetFocus _currentTarget;
 
   bool _refocus = false;
   bool _isFadeIn = false;
@@ -84,8 +84,8 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             },
             onFocus: (target) {
               setState(() {
-                currentTarget = target;
-                showContent = true;
+                _currentTarget = target;
+                _showContent = true;
 
                 _refocus = true;
                 _isFadeIn = false;
@@ -133,13 +133,13 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
   }
 
   Widget _buildContents() {
-    if (currentTarget == null) {
+    if (_currentTarget == null) {
       return SizedBox.shrink();
     }
 
     List<Widget> children = List();
 
-    TargetPosition target = createTarget(currentTarget);
+    TargetPosition target = createTarget(_currentTarget);
 
     var positioned = Offset(
       target.offset.dx + target.size.width / 2,
@@ -149,7 +149,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
     double haloWidth;
     double haloHeight;
 
-    if (currentTarget.shape == ShapeLightFocus.Circle) {
+    if (_currentTarget.shape == ShapeLightFocus.Circle) {
       haloWidth = target.size.width > target.size.height
           ? target.size.width
           : target.size.height;
@@ -167,7 +167,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
     double bottom;
     double left;
 
-    children = currentTarget.contents.map<Widget>((i) {
+    children = _currentTarget.contents.map<Widget>((i) {
       switch (i.align) {
         case AlignContent.bottom:
           {
@@ -239,7 +239,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
       alignment: widget.alignSkip,
       child: SafeArea(
         child: AnimatedOpacity(
-          opacity: showContent ? 1 : 0,
+          opacity: _showContent ? 1 : 0,
           duration: Duration(milliseconds: 300),
           child: InkWell(
             onTap: widget.clickSkip,
