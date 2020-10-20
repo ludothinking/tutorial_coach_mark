@@ -8,7 +8,7 @@
 
 * fix: Call `onFocus` for the first target
 
-## [0.6.3+3] - 15/10/2020.
+## [0.6.3+4] - 15/10/2020.
 
 * Use provided radius if shape is not `ShapeLightFocus.Circle`
 
