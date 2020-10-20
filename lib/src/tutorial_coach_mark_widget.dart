@@ -17,6 +17,10 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final bool hideSkip;
   final bool enableTicker;
 
+  final Duration pulseDuration;
+  final Duration focusDuration;
+  final double maxPulsePadding;
+
   final Function(TargetFocus) clickTarget;
   final Function() finish;
   final Function() clickSkip;
@@ -37,6 +41,9 @@ class TutorialCoachMarkWidget extends StatefulWidget {
     this.finish,
     this.clickSkip,
     this.onTick,
+    this.pulseDuration,
+    this.focusDuration,
+    this.maxPulsePadding,
   }) : super(key: key);
 
   @override
@@ -75,6 +82,9 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             opacityShadow: widget.opacityShadow,
             onClickTarget: widget.clickTarget,
             enableTicker: widget.enableTicker,
+            focusDuration: widget.pulseDuration,
+            pulseDuration: widget.focusDuration,
+            maxPulsePadding: widget.maxPulsePadding,
             onTick: () {
               setState(() {
                 _content = _buildContents();
@@ -95,7 +105,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
           IgnorePointer(
             ignoring: true,
             child: TweenAnimationBuilder(
-              duration: Duration(milliseconds: 300),
+              duration: widget.focusDuration,
               tween: Tween<double>(
                 begin: !_refocus
                     ? 1

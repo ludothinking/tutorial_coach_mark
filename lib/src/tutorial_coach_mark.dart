@@ -23,6 +23,10 @@ class TutorialCoachMark {
   final bool enableTicker;
   final Function() onTick;
 
+  final Duration pulseDuration;
+  final Duration focusDuration;
+  final double maxPulsePadding;
+
   OverlayEntry _overlayEntry;
 
   TutorialCoachMark({
@@ -41,6 +45,9 @@ class TutorialCoachMark {
     this.opacityShadow = 0.8,
     this.enableTicker = false,
     this.onTick,
+    this.pulseDuration = const Duration(milliseconds: 500),
+    this.focusDuration = const Duration(milliseconds: 500),
+    this.maxPulsePadding = 8,
   })  : assert(context != null || overlay != null,
             "Either [context] or [overlay] must not be null"),
         assert(targets != null, opacityShadow >= 0 && opacityShadow <= 1);
@@ -62,6 +69,9 @@ class TutorialCoachMark {
         finish: finish,
         enableTicker: enableTicker,
         onTick: onTick,
+        focusDuration: pulseDuration,
+        pulseDuration: focusDuration,
+        maxPulsePadding: maxPulsePadding,
       );
     });
   }
