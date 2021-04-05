@@ -1,10 +1,10 @@
 name: tutorial_coach_mark
 description: Guide that helps you to present your app and its features in a beautiful, simple and customizable way.
-version: 0.6.4
+version: 0.7.0-nullsafety.0
 homepage: https://github.com/ludothinking/tutorial_coach_mark
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:

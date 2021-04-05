@@ -22,17 +22,17 @@ class AnimatedFocusLight extends StatefulWidget {
 
   final bool enableTicker;
 
-  final Function(TargetFocus) onFocus;
-  final Function(TargetFocus) onClickTarget;
-  final Function() onFinish;
-  final Function() onTick;
+  final Function(TargetFocus)? onFocus;
+  final Function(TargetFocus)? onClickTarget;
+  final Function()? onFinish;
+  final Function()? onTick;
 
   final Duration focusDuration;
   final Duration pulseDuration;
 
   const AnimatedFocusLight({
-    Key key,
-    this.targets,
+    Key? key,
+    required this.targets,
     this.paddingFocus = 10,
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
@@ -51,27 +51,27 @@ class AnimatedFocusLight extends StatefulWidget {
 }
 
 class AnimatedFocusLightState extends State<AnimatedFocusLight> {
-  TargetPosition _currentTarget;
-  TargetPosition _oldTarget;
+  TargetPosition? _currentTarget;
+  TargetPosition? _oldTarget;
 
   int _currentFocus = 0;
-  TargetFocus _targetFocus;
+  TargetFocus? _targetFocus;
 
   double _pulseBegin = 1;
   double _pulseEnd = 0;
-  double _pulsePadding;
+  double? _pulsePadding;
 
-  Ticker _ticker;
+  Ticker? _ticker;
 
   @override
   void initState() {
     super.initState();
 
-    _targetFocus = widget?.targets[_currentFocus];
+    _targetFocus = widget.targets[_currentFocus];
 
     if (widget.enableTicker) {
       _ticker = Ticker(_tick);
-      _ticker.start();
+      _ticker!.start();
     }
 
     _runFocus();
@@ -87,8 +87,8 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _targetFocus.enableOverlayTab ? next : null,
-      child: TweenAnimationBuilder(
+      onTap: _targetFocus!.enableOverlayTab ? next : null,
+      child: TweenAnimationBuilder<TargetPosition>(
         curve: Curves.ease,
         duration: widget.focusDuration,
         tween: Tween<TargetPosition>(begin: _oldTarget, end: _currentTarget),
@@ -96,7 +96,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
           return Stack(
             children: <Widget>[
               LayoutBuilder(
-                builder: (_, c) => TweenAnimationBuilder(
+                builder: (_, c) => TweenAnimationBuilder<double>(
                   duration: widget.pulseDuration,
                   curve: Curves.ease,
                   tween: Tween<double>(begin: _pulseBegin, end: _pulseEnd),
@@ -126,15 +126,15 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
                 ),
               ),
               Positioned(
-                left: (_currentTarget?.offset?.dx ?? 0) - 10,
-                top: (_currentTarget?.offset?.dy ?? 0) - 10,
+                left: (_currentTarget?.offset.dx ?? 0) - 10,
+                top: (_currentTarget?.offset.dy ?? 0) - 10,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(5),
-                  onTap: _targetFocus.enableTargetTab ? next : null,
+                  onTap: _targetFocus!.enableTargetTab ? next : null,
                   child: Container(
                     color: Colors.transparent,
-                    width: (_currentTarget?.size?.width ?? 0) + 20,
-                    height: (_currentTarget?.size?.height ?? 0) + 20,
+                    width: (_currentTarget?.size.width ?? 0) + 20,
+                    height: (_currentTarget?.size.height ?? 0) + 20,
                   ),
                 ),
               )
@@ -151,7 +151,7 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
     }
 
     setState(() {
-      _currentTarget = createTarget(_targetFocus);
+      _currentTarget = createTarget(_targetFocus!);
     });
 
     widget.onTick?.call();
@@ -166,15 +166,15 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
 
     setState(() {
       var temp = _currentTarget;
-      _currentTarget = createTarget(_targetFocus);
+      _currentTarget = createTarget(_targetFocus!);
 
       if (_oldTarget == null) {
         _oldTarget = temp ?? _currentTarget;
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => widget?.onFocus(_targetFocus),
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => widget.onFocus?.call(_targetFocus!),
     );
   }
 
@@ -194,11 +194,11 @@ class AnimatedFocusLightState extends State<AnimatedFocusLight> {
       _currentFocus = 0;
     });
 
-    widget.onFinish();
+    widget.onFinish!();
   }
 
   void next() {
-    widget.onClickTarget?.call(_targetFocus);
+    widget.onClickTarget?.call(_targetFocus!);
 
     _nextFocus();
   }

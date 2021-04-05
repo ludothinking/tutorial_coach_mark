@@ -7,13 +7,12 @@ enum AlignContent { top, bottom, left, right, custom }
 class ContentTarget {
   ContentTarget({
     this.align = AlignContent.bottom,
-    this.child,
+    required this.child,
     this.customPosition,
-  }) : assert(child != null &&
-            !(align == AlignContent.custom && customPosition == null));
+  }) : assert(!(align == AlignContent.custom && customPosition == null));
 
   final AlignContent align;
-  final CustomTargetPosition customPosition;
+  final CustomTargetPosition? customPosition;
   final Widget child;
 
   @override

@@ -21,29 +21,29 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final Duration focusDuration;
   final double maxPulsePadding;
 
-  final Function(TargetFocus) clickTarget;
-  final Function() finish;
-  final Function() clickSkip;
-  final Function() onTick;
+  final Function(TargetFocus)? clickTarget;
+  final Function()? finish;
+  final Function()? clickSkip;
+  final Function()? onTick;
 
   const TutorialCoachMarkWidget({
-    Key key,
-    this.targets,
+    Key? key,
+    required this.targets,
     this.paddingFocus = 10,
     this.alignSkip = Alignment.bottomRight,
     this.textSkip = "SKIP",
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
     this.textStyleSkip = const TextStyle(color: Colors.white),
-    this.hideSkip,
+    this.hideSkip = false,
     this.enableTicker = false,
     this.clickTarget,
     this.finish,
     this.clickSkip,
     this.onTick,
-    this.pulseDuration,
-    this.focusDuration,
-    this.maxPulsePadding,
+    this.pulseDuration = const Duration(milliseconds: 500),
+    this.focusDuration = const Duration(milliseconds: 500),
+    this.maxPulsePadding = 8,
   }) : super(key: key);
 
   @override
@@ -53,12 +53,12 @@ class TutorialCoachMarkWidget extends StatefulWidget {
 class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
   final GlobalKey<AnimatedFocusLightState> _focusLightKey = GlobalKey();
   bool _showContent = false;
-  TargetFocus _currentTarget;
+  TargetFocus? _currentTarget;
 
   bool _refocus = false;
   bool _isFadeIn = false;
 
-  Widget _content;
+  Widget? _content;
 
   @override
   void initState() {
@@ -104,7 +104,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
           ),
           IgnorePointer(
             ignoring: true,
-            child: TweenAnimationBuilder(
+            child: TweenAnimationBuilder<double>(
               duration: widget.focusDuration,
               tween: Tween<double>(
                 begin: !_refocus
@@ -147,9 +147,9 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
       return SizedBox.shrink();
     }
 
-    List<Widget> children = List();
+    List<Widget> children = [];
 
-    TargetPosition target = createTarget(_currentTarget);
+    TargetPosition target = createTarget(_currentTarget!);
 
     var positioned = Offset(
       target.offset.dx + target.size.width / 2,
@@ -159,7 +159,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
     double haloWidth;
     double haloHeight;
 
-    if (_currentTarget.shape == ShapeLightFocus.Circle) {
+    if (_currentTarget!.shape == ShapeLightFocus.Circle) {
       haloWidth = target.size.width > target.size.height
           ? target.size.width
           : target.size.height;
@@ -173,11 +173,11 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
     haloHeight = haloHeight * 0.6 + widget.paddingFocus;
 
     double weight = 0.0;
-    double top;
-    double bottom;
-    double left;
+    double? top;
+    double? bottom;
+    double? left;
 
-    children = _currentTarget.contents.map<Widget>((i) {
+    children = _currentTarget!.contents.map<Widget>((i) {
       switch (i.align) {
         case AlignContent.bottom:
           {
@@ -209,14 +209,14 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             left = positioned.dx + haloWidth;
             top = positioned.dy - target.size.height / 2 - haloHeight;
             bottom = null;
-            weight = MediaQuery.of(context).size.width - left;
+            weight = MediaQuery.of(context).size.width - left!;
           }
           break;
         case AlignContent.custom:
           {
-            left = i.customPosition.left;
-            top = i.customPosition.top;
-            bottom = i.customPosition.bottom;
+            left = i.customPosition!.left;
+            top = i.customPosition!.top;
+            bottom = i.customPosition!.bottom;
             weight = MediaQuery.of(context).size.width;
           }
           break;
@@ -266,7 +266,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
     );
   }
 
-  void next() => _focusLightKey?.currentState?.next();
+  void next() => _focusLightKey.currentState?.next();
 
-  void previous() => _focusLightKey?.currentState?.previous();
+  void previous() => _focusLightKey.currentState?.previous();
 }

@@ -24,7 +24,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TutorialCoachMark tutorialCoachMark;
-  List<TargetFocus> targets = List();
+  List<TargetFocus> targets = [];
 
   GlobalKey keyButton = GlobalKey();
   GlobalKey keyButton1 = GlobalKey();
@@ -71,8 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: MediaQuery.of(context).size.width - 50,
                   child: Align(
                     alignment: Alignment.center,
-                    child: RaisedButton(
-                      color: Colors.blueAccent,
+                    child: ElevatedButton(
                       child: Icon(Icons.remove_red_eye),
                       onPressed: () {
                         showTutorial();
@@ -98,9 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SizedBox(
                   width: 50,
                   height: 100,
-                  child: RaisedButton(
+                  child: ElevatedButton(
+                    child: Text(''),
                     key: keyButton2,
-                    color: Colors.pink,
                     onPressed: () {},
                   ),
                 ),
@@ -113,7 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SizedBox(
                   width: 50,
                   height: 50,
-                  child: RaisedButton(
+                  child: ElevatedButton(
+                    child: Text(''),
                     key: keyButton3,
                     onPressed: () {},
                   ),
@@ -127,7 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SizedBox(
                   width: 50,
                   height: 50,
-                  child: RaisedButton(
+                  child: ElevatedButton(
+                    child: Text(''),
                     key: keyButton4,
                     onPressed: () {},
                   ),
@@ -141,7 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SizedBox(
                   width: 50,
                   height: 50,
-                  child: RaisedButton(
+                  child: ElevatedButton(
+                    child: Text(''),
                     key: keyButton5,
                     onPressed: () {},
                   ),

@@ -5,7 +5,7 @@ class CustomTargetPosition {
     this.bottom,
   });
 
-  final double top, left, bottom;
+  final double? top, left, bottom;
 
   @override
   String toString() {

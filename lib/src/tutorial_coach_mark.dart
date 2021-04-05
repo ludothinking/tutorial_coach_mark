@@ -4,14 +4,14 @@ import 'target_focus.dart';
 import 'tutorial_coach_mark_widget.dart';
 
 class TutorialCoachMark {
-  final BuildContext context;
-  final OverlayState overlay;
+  final BuildContext? context;
+  final OverlayState? overlay;
 
   final List<TargetFocus> targets;
-  final Function(TargetFocus) onClickTarget;
-  final Function() onFinish;
+  final Function(TargetFocus)? onClickTarget;
+  final Function()? onFinish;
   final double paddingFocus;
-  final Function() onClickSkip;
+  final Function()? onClickSkip;
   final AlignmentGeometry alignSkip;
   final String textSkip;
   final TextStyle textStyleSkip;
@@ -21,18 +21,18 @@ class TutorialCoachMark {
   final GlobalKey<TutorialCoachMarkWidgetState> _widgetKey = GlobalKey();
 
   final bool enableTicker;
-  final Function() onTick;
+  final Function()? onTick;
 
   final Duration pulseDuration;
   final Duration focusDuration;
   final double maxPulsePadding;
 
-  OverlayEntry _overlayEntry;
+  OverlayEntry? _overlayEntry;
 
   TutorialCoachMark({
     this.context,
     this.overlay,
-    this.targets,
+    required this.targets,
     this.colorShadow = Colors.black,
     this.onClickTarget,
     this.onFinish,
@@ -49,8 +49,7 @@ class TutorialCoachMark {
     this.focusDuration = const Duration(milliseconds: 500),
     this.maxPulsePadding = 8,
   })  : assert(context != null || overlay != null,
-            "Either [context] or [overlay] must not be null"),
-        assert(targets != null, opacityShadow >= 0 && opacityShadow <= 1);
+            "Either [context] or [overlay] must not be null");
 
   OverlayEntry _buildOverlay() {
     return OverlayEntry(builder: (context) {
@@ -79,29 +78,29 @@ class TutorialCoachMark {
   void show() {
     if (_overlayEntry == null) {
       _overlayEntry = _buildOverlay();
-      _getOverlay().insert(_overlayEntry);
+      _getOverlay().insert(_overlayEntry!);
     }
   }
 
   void finish() {
-    if (onFinish != null) onFinish();
+    if (onFinish != null) onFinish!();
     _removeOverlay();
   }
 
   void skip() {
-    if (onClickSkip != null) onClickSkip();
+    if (onClickSkip != null) onClickSkip!();
     _removeOverlay();
   }
 
-  void next() => _widgetKey?.currentState?.next();
+  void next() => _widgetKey.currentState?.next();
 
-  void previous() => _widgetKey?.currentState?.previous();
+  void previous() => _widgetKey.currentState?.previous();
 
   OverlayState _getOverlay() {
     if (overlay != null) {
-      return overlay;
+      return overlay!;
     } else {
-      return Overlay.of(context);
+      return Overlay.of(context!)!;
     }
   }
 

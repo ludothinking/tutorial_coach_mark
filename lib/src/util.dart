@@ -10,10 +10,10 @@ TargetPosition createTarget(TargetFocus focus) {
   TargetPosition target;
 
   if (focus.keyTarget != null) {
-    var key = focus.keyTarget;
+    var key = focus.keyTarget!;
 
     try {
-      final RenderBox renderBoxRed = key.currentContext.findRenderObject();
+      final RenderBox renderBoxRed = key.currentContext!.findRenderObject() as RenderBox;
       final size = renderBoxRed.size;
       final offset = renderBoxRed.localToGlobal(Offset.zero);
 
@@ -38,7 +38,7 @@ TargetPosition createTarget(TargetFocus focus) {
     var diff = (oldSize - target.size) as Offset;
     target.offset += diff / 2;
   } else {
-    target.radius = focus.radius;
+    target.radius = focus.radius!;
   }
 
   return target;

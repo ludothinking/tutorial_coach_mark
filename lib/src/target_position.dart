@@ -16,7 +16,7 @@ class TargetPosition {
 
   TargetPosition operator -(TargetPosition other) {
     return TargetPosition(
-      size - Offset(other.size.width, other.size.height),
+      size - Offset(other.size.width, other.size.height) as Size,
       offset - other.offset,
       radius - other.radius,
     );

@@ -9,10 +9,10 @@ class LightPainter extends CustomPainter {
   final double padding;
   final double radius;
 
-  Paint _paintFocus;
+  late Paint _paintFocus;
 
   LightPainter({
-    this.target,
+    required this.target,
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
     this.padding = 10,
